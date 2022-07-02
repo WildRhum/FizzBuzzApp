@@ -1,7 +1,9 @@
 package com.example.fizzbuzzapp.ui.form
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,6 +30,7 @@ fun FormScreen(
         modifier = Modifier
             .fillMaxSize()
             .navigationBarsPadding()
+            .verticalScroll(rememberScrollState())
             .padding(dimensionResource(R.dimen.default_padding)),
         verticalArrangement = Arrangement.spacedBy(32.dp, Alignment.CenterVertically),
         horizontalAlignment = Alignment.CenterHorizontally
