@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">FizzBuzzApp</string>
+
+    <!-- Form strings -->
+    <string name="app_intro_message">Welcome to the Fizz Buzz app ! Enter your inputs and let the magic happens !</string>
+    <string name="first_number_input_label">First multiple</string>
+    <string name="first_number_input_placeholder">1, 2, 3 …</string>
+    <string name="second_number_input_label">Second multiple</string>
+    <string name="second_number_input_placeholder">4, 5, 6 …</string>
+    <string name="first_word_input_label">First word</string>
+    <string name="first_word_input_placeholder">Fizz</string>
+    <string name="second_word_input_label">Second word</string>
+    <string name="second_word_input_placeholder">Buzz</string>
+    <string name="validate_form_button_text">Fizz it !</string>
 </resources>
