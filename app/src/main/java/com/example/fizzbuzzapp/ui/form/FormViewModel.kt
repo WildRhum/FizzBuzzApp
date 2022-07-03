@@ -13,11 +13,13 @@ class FormViewModel @Inject constructor() : ViewModel() {
     var secondNumberInput by mutableStateOf("")
     var firstTextInput by mutableStateOf("")
     var secondTextInput by mutableStateOf("")
+    var limitInput by mutableStateOf("")
 
     var firstNumberInputError by mutableStateOf(false)
     var secondNumberInputError by mutableStateOf(false)
     var firstTextInputError by mutableStateOf(false)
     var secondTextInputError by mutableStateOf(false)
+    var limitInputError by mutableStateOf(false)
 
     fun isTextInputInError(input: String): Boolean {
         return input.isBlank()
@@ -28,10 +30,11 @@ class FormViewModel @Inject constructor() : ViewModel() {
     }
 
     fun areInputsValid(): Boolean {
-        firstNumberInputError = isTextInputInError(firstNumberInput)
-        secondNumberInputError = isTextInputInError(secondNumberInput)
+        firstNumberInputError = isNumberInputInError(firstNumberInput)
+        secondNumberInputError = isNumberInputInError(secondNumberInput)
         firstTextInputError = isTextInputInError(firstTextInput)
         secondTextInputError = isTextInputInError(secondTextInput)
-        return firstNumberInputError && secondNumberInputError && firstTextInputError && secondTextInputError
+        limitInputError = isNumberInputInError(limitInput)
+        return !firstNumberInputError && !secondNumberInputError && !firstTextInputError && !secondTextInputError && !limitInputError
     }
 }
