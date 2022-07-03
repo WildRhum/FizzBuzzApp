@@ -47,7 +47,7 @@ fun FormScreen(
             label = stringResource(R.string.first_number_input_label),
             placeholder = stringResource(R.string.first_number_input_placeholder),
             onChange = {
-                viewModel.firstNumberInput = it
+                viewModel.firstNumberInput = it.filter { input -> input.isDigit() }
                 viewModel.firstNumberInputError = viewModel.isNumberInputInError(viewModel.firstNumberInput)
             },
             imeAction = ImeAction.Next,
@@ -66,7 +66,7 @@ fun FormScreen(
             label = stringResource(R.string.second_number_input_label),
             placeholder = stringResource(R.string.second_number_input_placeholder),
             onChange = {
-                viewModel.secondNumberInput = it
+                viewModel.secondNumberInput = it.filter { input -> input.isDigit() }
                 viewModel.secondNumberInputError = viewModel.isNumberInputInError(viewModel.secondNumberInput)
             },
             imeAction = ImeAction.Next,
@@ -107,16 +107,35 @@ fun FormScreen(
                 viewModel.secondTextInput = it
                 viewModel.secondTextInputError = viewModel.isTextInputInError(viewModel.secondTextInput)
             },
-            imeAction = ImeAction.Done,
+            imeAction = ImeAction.Next,
             keyboardType = KeyboardType.Text,
+            keyBoardActions = KeyboardActions(
+                onDone = {
+                    focusManager.moveFocus(FocusDirection.Down)
+                }
+            ),
+            showError = viewModel.secondTextInputError,
+            errorMessage = stringResource(R.string.text_input_error_message)
+        )
+
+        AppTextField(
+            text = viewModel.limitInput,
+            label = stringResource(R.string.limit_input_label),
+            placeholder = stringResource(R.string.limit_input_placeholder),
+            onChange = {
+                viewModel.limitInput = it.filter { input -> input.isDigit() }
+                viewModel.limitInputError = viewModel.isNumberInputInError(viewModel.limitInput)
+            },
+            imeAction = ImeAction.Done,
+            keyboardType = KeyboardType.Number,
             keyBoardActions = KeyboardActions(
                 onDone = {
                     // User is done with his inputs, remove the keyboard and clear focus
                     focusManager.clearFocus()
                 }
             ),
-            showError = viewModel.secondTextInputError,
-            errorMessage = stringResource(R.string.text_input_error_message)
+            showError = viewModel.limitInputError,
+            errorMessage = stringResource(R.string.number_input_error_message)
         )
 
         GradientButton(
