@@ -32,10 +32,10 @@ fun FormScreen(
             .navigationBarsPadding()
             .verticalScroll(rememberScrollState())
             .padding(dimensionResource(R.dimen.default_padding)),
-        verticalArrangement = Arrangement.spacedBy(32.dp, Alignment.CenterVertically),
+        verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Helps to move to the next input
+        // Helps to move to the next input and clear focus
         val focusManager = LocalFocusManager.current
 
         // A little introduction message to welcome the user
@@ -43,11 +43,12 @@ fun FormScreen(
 
         // Creating the inputs and binding their value to the ViewModel
         AppTextField(
-            text = viewModel.firstInputNumber,
+            text = viewModel.firstNumberInput,
             label = stringResource(R.string.first_number_input_label),
             placeholder = stringResource(R.string.first_number_input_placeholder),
             onChange = {
-                viewModel.firstInputNumber = it
+                viewModel.firstNumberInput = it
+                viewModel.firstNumberInputError = viewModel.isNumberInputInError(viewModel.firstNumberInput)
             },
             imeAction = ImeAction.Next,
             keyboardType = KeyboardType.Number,
@@ -55,15 +56,18 @@ fun FormScreen(
                 onNext = {
                     focusManager.moveFocus(FocusDirection.Down)
                 }
-            )
+            ),
+            showError = viewModel.firstNumberInputError,
+            errorMessage = stringResource(R.string.number_input_error_message)
         )
 
         AppTextField(
-            text = viewModel.secondInputNumber,
+            text = viewModel.secondNumberInput,
             label = stringResource(R.string.second_number_input_label),
             placeholder = stringResource(R.string.second_number_input_placeholder),
             onChange = {
-                viewModel.secondInputNumber = it
+                viewModel.secondNumberInput = it
+                viewModel.secondNumberInputError = viewModel.isNumberInputInError(viewModel.secondNumberInput)
             },
             imeAction = ImeAction.Next,
             keyboardType = KeyboardType.Number,
@@ -71,15 +75,18 @@ fun FormScreen(
                 onNext = {
                     focusManager.moveFocus(FocusDirection.Down)
                 }
-            )
+            ),
+            showError = viewModel.secondNumberInputError,
+            errorMessage = stringResource(R.string.number_input_error_message)
         )
 
         AppTextField(
-            text = viewModel.firstInputText,
-            label = stringResource(R.string.first_word_input_label),
-            placeholder = stringResource(R.string.first_word_input_placeholder),
+            text = viewModel.firstTextInput,
+            label = stringResource(R.string.first_text_input_label),
+            placeholder = stringResource(R.string.first_text_input_placeholder),
             onChange = {
-                viewModel.firstInputText = it
+                viewModel.firstTextInput = it
+                viewModel.firstTextInputError = viewModel.isTextInputInError(viewModel.firstTextInput)
             },
             imeAction = ImeAction.Next,
             keyboardType = KeyboardType.Text,
@@ -87,15 +94,18 @@ fun FormScreen(
                 onNext = {
                     focusManager.moveFocus(FocusDirection.Down)
                 }
-            )
+            ),
+            showError = viewModel.firstTextInputError,
+            errorMessage = stringResource(R.string.text_input_error_message)
         )
 
         AppTextField(
-            text = viewModel.secondInputText,
-            label = stringResource(R.string.second_word_input_label),
-            placeholder = stringResource(R.string.second_word_input_placeholder),
+            text = viewModel.secondTextInput,
+            label = stringResource(R.string.second_text_input_label),
+            placeholder = stringResource(R.string.second_text_input_placeholder),
             onChange = {
-                viewModel.secondInputText = it
+                viewModel.secondTextInput = it
+                viewModel.secondTextInputError = viewModel.isTextInputInError(viewModel.secondTextInput)
             },
             imeAction = ImeAction.Done,
             keyboardType = KeyboardType.Text,
@@ -104,14 +114,21 @@ fun FormScreen(
                     // User is done with his inputs, remove the keyboard and clear focus
                     focusManager.clearFocus()
                 }
-            )
+            ),
+            showError = viewModel.secondTextInputError,
+            errorMessage = stringResource(R.string.text_input_error_message)
         )
 
         GradientButton(
             text = stringResource(R.string.validate_form_button_text),
             modifier = Modifier
                 .padding(vertical = dimensionResource(R.dimen.default_padding))
-                .fillMaxWidth()
+                .fillMaxWidth(),
+            onClick = {
+                viewModel.areInputsValid()
+                //if (viewModel.areInputsValid())
+                    //Navigate to next screen
+            }
         )
     }
 }
