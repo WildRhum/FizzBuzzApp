@@ -10,16 +10,22 @@ import com.example.fizzbuzzapp.ui.form.FormViewModel
 
 @Composable
 fun FizzBuzzScreen(
-    viewModel: FizzBuzzViewModel,
-    formViewModel: FormViewModel
+    fizzBuzzViewModel: FizzBuzzViewModel,
+    formViewModel: FormViewModel,
 ) {
     // Init the FizzBuzzRepository limit and fetch some items
-    viewModel.fetchMoreItems(formViewModel.limitInput.toInt())
+    fizzBuzzViewModel.fetchMoreItems(formViewModel.limitInput.toInt())
 
     val listState = rememberLazyListState()
     LazyColumn(state = listState){
-        items(viewModel.itemsList){ item ->
-            AppCard(text = item)
+        items(fizzBuzzViewModel.itemsList){ item ->
+            AppCard(text = fizzBuzzViewModel.getFizzBuzzValue(
+                value = item,
+                firstNumberInput = formViewModel.firstNumberInput,
+                secondNumberInput = formViewModel.secondNumberInput,
+                firstTextInput = formViewModel.firstTextInput,
+                secondTextInput = formViewModel.secondTextInput,
+            ))
         }
     }
 
@@ -27,7 +33,7 @@ fun FizzBuzzScreen(
     // we reach the last item so we can scroll smoothly
     listState.OnBottomReached(buffer = 3) {
         // do on load more
-        viewModel.fetchMoreItems(formViewModel.limitInput.toInt())
+        fizzBuzzViewModel.fetchMoreItems(formViewModel.limitInput.toInt())
     }
 }
 

@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun AppCard(text: Int) {
+fun AppCard(text: String) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -22,7 +22,7 @@ fun AppCard(text: Int) {
         Column(
             modifier = Modifier.padding(15.dp)
         ) {
-            Text(text.toString())
+            Text(text)
         }
     }
 }
