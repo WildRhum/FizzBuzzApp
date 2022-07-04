@@ -5,9 +5,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Card
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -19,10 +21,11 @@ fun AppCard(text: String) {
             .clickable { },
         elevation = 10.dp
     ) {
-        Column(
+        Text(
+            text,
+            textAlign = TextAlign.Center,
+            style = MaterialTheme.typography.button,
             modifier = Modifier.padding(15.dp)
-        ) {
-            Text(text)
-        }
+        )
     }
 }
