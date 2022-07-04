@@ -6,4 +6,5 @@ package com.example.fizzbuzzapp.ui
  **/
 sealed class Screen(val route: String) {
     object FormScreen: Screen("form_screen")
+    object FizzBuzzScreen: Screen("fizz_buzz_screen")
 }
