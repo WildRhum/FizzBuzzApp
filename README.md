@@ -17,11 +17,13 @@ By default, the user starts in the Form Screen.
 In the Form Screen the User can input his options to play the Fizz Buzz game
 The inputs handles error and we can only go to the next Screen if they are correctly filled.
 When everything is done, press the "Fizz it !" button and enjoy the Fizz Buzz result list.
+<img src="https://user-images.githubusercontent.com/7012127/177100957-6e12f5af-2866-4eb6-8e84-e5ec786db86b.png" alt="FormScreen" width="200"/>
 
 ### FizzBuzz Screen
 
 Here you'll find your Fizz Buzz based on the inputs you entered.
 The list updates each 20 items when we get to the bottom of the list.
+<img src="https://user-images.githubusercontent.com/7012127/177100982-8a7f64be-2b4c-4189-8399-0963af3cfc13.png" alt="FizzBuzzScreen" width="200"/>
 
 ### Trivia 
 
