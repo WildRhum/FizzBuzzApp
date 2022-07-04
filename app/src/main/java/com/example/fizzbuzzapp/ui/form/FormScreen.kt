@@ -14,9 +14,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.fizzbuzzapp.R
+import com.example.fizzbuzzapp.ui.Screen
 import com.example.fizzbuzzapp.ui.form.components.AppTextField
 import com.example.fizzbuzzapp.ui.form.components.GradientButton
 import com.example.fizzbuzzapp.ui.form.components.IntroductionText
@@ -24,7 +24,7 @@ import com.example.fizzbuzzapp.ui.form.components.IntroductionText
 @Composable
 fun FormScreen(
     navController: NavController,
-    viewModel: FormViewModel = viewModel()
+    viewModel: FormViewModel
 ) {
     Column(
         modifier = Modifier
@@ -144,9 +144,8 @@ fun FormScreen(
                 .padding(vertical = dimensionResource(R.dimen.default_padding))
                 .fillMaxWidth(),
             onClick = {
-                viewModel.areInputsValid()
-                //if (viewModel.areInputsValid())
-                    //Navigate to next screen
+                if (viewModel.areInputsValid())
+                    navController.navigate(Screen.FizzBuzzScreen.route)
             }
         )
     }

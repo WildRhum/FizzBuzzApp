@@ -8,13 +8,18 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.fizzbuzzapp.ui.Screen
+import com.example.fizzbuzzapp.ui.fizzbuzz.FizzBuzzScreen
+import com.example.fizzbuzzapp.ui.fizzbuzz.FizzBuzzViewModel
 import com.example.fizzbuzzapp.ui.form.FormScreen
+import com.example.fizzbuzzapp.ui.form.FormViewModel
 import com.example.fizzbuzzapp.ui.theme.FizzBuzzAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -36,7 +41,18 @@ class MainActivity : ComponentActivity() {
                         composable(
                             route = Screen.FormScreen.route
                         ) {
-                            FormScreen(navController)
+                            val formViewModel = hiltViewModel<FormViewModel>()
+                            FormScreen(navController, formViewModel)
+                        }
+                        composable(
+                            route = Screen.FizzBuzzScreen.route
+                        ) {
+                            val fizzBuzzViewModel = hiltViewModel<FizzBuzzViewModel>()
+                            val parentEntry = remember(it) {
+                                navController.getBackStackEntry(Screen.FormScreen.route)
+                            }
+                            val formViewModel = hiltViewModel<FormViewModel>(parentEntry)
+                            FizzBuzzScreen(fizzBuzzViewModel, formViewModel)
                         }
                     }
                 }
