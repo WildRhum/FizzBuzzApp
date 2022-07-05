@@ -31,7 +31,7 @@ fun FizzBuzzScreen(
 
     // call the extension function, buffer makes the call before
     // we reach the last item so we can scroll smoothly
-    listState.OnBottomReached(buffer = 3) {
+    listState.OnBottomReached() {
         // do on load more
         fizzBuzzViewModel.fetchMoreItems(formViewModel.limitInput.toInt())
     }
@@ -39,7 +39,6 @@ fun FizzBuzzScreen(
 
 @Composable
 fun LazyListState.OnBottomReached(
-    buffer : Int = 0,
     loadMore : () -> Unit
 ){
     val shouldLoadMore = remember {
@@ -47,7 +46,7 @@ fun LazyListState.OnBottomReached(
             val lastVisibleItem = layoutInfo.visibleItemsInfo.lastOrNull()
                 ?: return@derivedStateOf true
 
-            lastVisibleItem.index == layoutInfo.totalItemsCount - 1 - buffer
+            lastVisibleItem.index == layoutInfo.totalItemsCount - 1
         }
     }
 
